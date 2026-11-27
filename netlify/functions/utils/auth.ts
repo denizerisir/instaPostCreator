@@ -1,10 +1,12 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
-const DEFAULT_SECRET = 'art_studio_secure_jwt_session_secret_2026_default';
-
 export function getSessionSecret(): string {
-  return process.env.SESSION_SECRET || DEFAULT_SECRET;
+  const secret = process.env.SESSION_SECRET?.trim();
+  if (!secret) {
+    throw new Error('SESSION_SECRET ortam değişkeni tanımlanmamış.');
+  }
+  return secret;
 }
 
 export interface SessionPayload {
