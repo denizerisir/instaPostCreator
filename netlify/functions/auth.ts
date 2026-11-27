@@ -61,21 +61,34 @@ export const handler: Handler = async (event) => {
       }
 
       // Read configured credentials from environment variables
-      const envUsername = process.env.APP_USERNAME || 'admin';
-      const envPasswordHash = process.env.APP_PASSWORD_HASH;
+      const envUsername = (process.env.APP_USERNAME || 'admin').trim();
+      const envPasswordHash = process.env.APP_PASSWORD_HASH?.trim();
+      const envPassword = process.env.APP_PASSWORD?.trim();
 
       let isMatch = false;
 
-      if (envPasswordHash) {
-        // Enforce secure verification via bcrypt hash
-        if (username === envUsername) {
-          isMatch = verifyPassword(password, envPasswordHash);
+      if (username.trim() === envUsername) {
+        if (envPasswordHash) {
+          // Check if it's a bcrypt hash
+          if (envPasswordHash.startsWith('$2')) {
+            isMatch = verifyPassword(password, envPasswordHash);
+          }
+          // Fallback: in case user directly entered plain text password into APP_PASSWORD_HASH
+          if (!isMatch && password === envPasswordHash) {
+            isMatch = true;
+          }
         }
-      } else {
-        // Fallback for development if environment variable is not configured yet
-        // Default dev credentials: admin / studio2026
-        if (username === 'admin' && password === 'studio2026') {
-          isMatch = true;
+
+        // Also allow APP_PASSWORD as plain text alternative
+        if (!isMatch && envPassword) {
+          isMatch = password === envPassword;
+        }
+
+        // Fallback for development if no password variable is configured yet
+        if (!isMatch && !envPasswordHash && !envPassword) {
+          if (password === 'studio2026' || password === 'resimstudyosu2026') {
+            isMatch = true;
+          }
         }
       }
 
