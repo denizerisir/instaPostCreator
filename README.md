@@ -58,12 +58,12 @@ Netlify panelinde **Site configuration > Environment variables** bölümüne şu
 
 | Değişken Adı | Açıklama | Örnek Değer |
 |---|---|---|
-| `APP_USERNAME` | Giriş yapacak kullanıcı adı | `admin` |
+| `APP_USERNAME` | Giriş yapacak kullanıcı adı | `kullanici_adiniz` |
 | `APP_PASSWORD_HASH` | Bcrypt formatında şifre hash'i | *(Uygulamanın Ayarlar sekmesindeki araçla üretebilirsiniz)* |
 | `GEMINI_API_KEY` | Google AI Studio Gemini API Anahtarı | `AIzaSy...` |
 | `SESSION_SECRET` | Oturum JWT imzası için gizli rastgele metin | `en_az_32_karakterlik_guvenli_anahtar` |
 
-> **İpucu:** İlk kurulumda Netlify değişkenleri henüz girilmemişse, geliştirme kolaylığı için varsayılan kullanıcı adı: `admin`, şifre: `studio2026` olarak çalışır. Ayarlar sekmesinden dilediğiniz şifrenin hash'ini tek tıkla üretebilirsiniz.
+> **İpucu:** İlk kurulumda Netlify değişkenleri henüz girilmemişse, geliştirme kolaylığı için varsayılan geliştirme bilgileri kullanılır (kaynak kodda tanımlıdır) olarak çalışır. Ayarlar sekmesinden dilediğiniz şifrenin hash'ini tek tıkla üretebilirsiniz.
 
 ---
 
