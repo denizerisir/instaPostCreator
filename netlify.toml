@@ -5,6 +5,8 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  # Kullanıcı adı gizli bir değer değildir; tarama dışında tutulur
+  SECRETS_SCAN_OMIT_KEYS = "APP_USERNAME"
 
 # API Route yönlendirmeleri -> Netlify Functions
 [[redirects]]
